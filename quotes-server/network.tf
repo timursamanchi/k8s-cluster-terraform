@@ -51,6 +51,10 @@ resource "aws_route_table_association" "public" {
 resource "aws_security_group" "k8s_sg" {
   name   = "k8s-sg"
   vpc_id = aws_vpc.k8s.id
+
+  tags = {
+    Name = "k8s-security-group"
+  }
 }
 
 resource "aws_security_group_rule" "ssh" {
@@ -67,6 +71,42 @@ resource "aws_security_group_rule" "k8s_api" {
   from_port         = 6443
   to_port           = 6443
   protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.k8s_sg.id
+}
+
+resource "aws_security_group_rule" "k8s_node_ports" {
+  type              = "ingress"
+  from_port         = 30000
+  to_port           = 32767
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.k8s_sg.id
+}
+
+resource "aws_security_group_rule" "k8s_worker_to_master" {
+  type                     = "ingress"
+  from_port                = 10250
+  to_port                  = 10250
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.k8s_sg.id
+  source_security_group_id = aws_security_group.k8s_sg.id
+}
+
+resource "aws_security_group_rule" "k8s_worker_to_api" {
+  type                     = "ingress"
+  from_port                = 6443
+  to_port                  = 6443
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.k8s_sg.id
+  source_security_group_id = aws_security_group.k8s_sg.id
+}
+
+resource "aws_security_group_rule" "all_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.k8s_sg.id
 }
