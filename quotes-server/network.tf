@@ -19,6 +19,8 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
   tags = {
     Name = "public-subnet-${count.index + 1}"
+    AZ   = data.aws_availability_zones.available.names[count.index]
+    Role = "public"
   }
 }
 
