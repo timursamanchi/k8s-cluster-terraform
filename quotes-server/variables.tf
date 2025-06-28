@@ -19,3 +19,27 @@ variable "instance_type" {
   type        = string
   default     = "t3.medium"
 }
+
+variable "master_count" {
+  description = "Number of master controller nodes"
+  type        = number
+  default     = 3 # Example: default 3 masters for HA, override as needed
+}
+variable "worker_min_size" {
+  description = "Minimum number of worker nodes"
+  type        = number
+  default     = 2
+}
+
+variable "worker_max_size" {
+  description = "Maximum number of worker nodes"
+  type        = number
+  default     = 5
+}
+
+variable "worker_desired_capacity" {
+  description = "Desired initial number of worker nodes"
+  type        = number
+  default     = 2
+}
+

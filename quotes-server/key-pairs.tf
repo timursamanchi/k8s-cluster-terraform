@@ -9,13 +9,7 @@ resource "aws_key_pair" "k8s_key_pair" {
 }
 
 resource "local_file" "private_key" {
-  filename        = "${path.module}/k8s-key-pair.pem"
+  filename        = "${path.module}/scripts/k8s-key-pair.pem"
   content         = tls_private_key.ec2_key.private_key_pem
   file_permission = "0400"
-}
-
-resource "local_file" "public_key" {
-  filename        = "${path.module}/k8s-key-pair.pub"
-  content         = tls_private_key.ec2_key.public_key_openssh
-  file_permission = "0644"
 }

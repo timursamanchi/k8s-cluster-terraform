@@ -6,8 +6,8 @@ resource "aws_vpc" "k8s" {
   cidr_block           = "10.0.0.0/22"
   enable_dns_support   = true
   enable_dns_hostnames = true
-  tags = { 
-    Name = "k8s-vpc" 
+  tags = {
+    Name = "k8s-vpc"
   }
 }
 
