@@ -18,7 +18,7 @@ resource "aws_instance" "bastion" {
   tags = {
     Name = "k8s-bastion-${count.index + 1}" # Make names unique for each bastion
     Role = "bastion"
-    AZ   = element(
+    AZ = element(
       aws_subnet.public[*].availability_zone,
       count.index % length(aws_subnet.public)
     )
