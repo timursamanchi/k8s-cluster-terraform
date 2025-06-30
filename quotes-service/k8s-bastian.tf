@@ -8,14 +8,20 @@ resource "aws_instance" "bastion" {
   key_name                    = aws_key_pair.k8s_key_pair.key_name
   vpc_security_group_ids      = [aws_security_group.k8s_bastion_sg.id]
   associate_public_ip_address = true
-  subnet_id                   = aws_subnet.public[0].id
+
+  # Distribute bastions across public subnets / AZs
+  subnet_id = element(
+    aws_subnet.public[*].id,
+    count.index % length(aws_subnet.public)
+  )
 
   tags = {
-    Name = "k8s-bastion"
+    Name = "k8s-bastion-${count.index + 1}" # Make names unique for each bastion
     Role = "bastion"
-    AZ = element(
+    AZ   = element(
       aws_subnet.public[*].availability_zone,
       count.index % length(aws_subnet.public)
     )
   }
 }
+#######################################

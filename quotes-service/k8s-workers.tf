@@ -10,7 +10,7 @@ resource "aws_launch_template" "workers_lt" {
   key_name               = aws_key_pair.k8s_key_pair.key_name      # SSH key pair to access the worker nodes (used for debugging or manual operations)
   vpc_security_group_ids = [aws_security_group.k8s_worker_sg.id]   # Controls inbound/outbound traffic; should allow necessary ports (e.g., 10250 for kubelet, nodeport range, etc.)
 
-  user_data = base64encode(file("${path.module}/scripts/worker_user_data.sh"))
+  user_data = base64encode(file("${path.module}/scripts/user_data_worker.sh"))
   # User data script that runs on instance boot; typically contains 'kubeadm join' or equivalent setup commands.
   # Ensure this script is idempotent or design for reboots.
 

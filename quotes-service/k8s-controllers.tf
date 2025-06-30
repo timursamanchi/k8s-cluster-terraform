@@ -22,6 +22,5 @@ resource "aws_instance" "controller" {
       count.index % length(aws_subnet.controller_priv) # Assigns the availability zone based on the subnet index
     )
   }
-
   user_data = file("${path.module}/scripts/hello-world.sh")
 }
