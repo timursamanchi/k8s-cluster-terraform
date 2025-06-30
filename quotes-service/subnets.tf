@@ -18,10 +18,10 @@ resource "aws_subnet" "public" {
 # Private subnets for controllers
 #######################################
 resource "aws_subnet" "controller_priv" {
-  count                   = local.subnet_count
-  vpc_id                  = aws_vpc.k8s.id
-  cidr_block              = cidrsubnet(aws_vpc.k8s.cidr_block, 4, count.index)
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  count             = local.subnet_count
+  vpc_id            = aws_vpc.k8s.id
+  cidr_block        = cidrsubnet(aws_vpc.k8s.cidr_block, 4, count.index)
+  availability_zone = data.aws_availability_zones.available.names[count.index]
   tags = {
     Name = "controller-priv-subnet-${count.index + 1}"
     AZ   = data.aws_availability_zones.available.names[count.index]

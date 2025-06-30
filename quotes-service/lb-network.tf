@@ -3,7 +3,7 @@ resource "aws_lb" "k8s_api_nlb" {
   name               = "k8s-api-nlb"
   internal           = true
   load_balancer_type = "network"
-  subnets            = aws_subnet.controller_priv[*].id  # NLB spans private controller subnets
+  subnets            = aws_subnet.controller_priv[*].id # NLB spans private controller subnets
   tags = {
     Name = "k8s-api-nlb"
   }

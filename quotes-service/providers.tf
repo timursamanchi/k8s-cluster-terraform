@@ -3,19 +3,19 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"     # latest 5.x
+      version = "~> 5.0" # latest 5.x
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "~> 4.0"     # latest 4.x
+      version = "~> 4.0" # latest 4.x
     }
     local = {
       source  = "hashicorp/local"
-      version = "~> 2.2"     # latest 2.x
+      version = "~> 2.2" # latest 2.x
     }
     time = {
       source  = "hashicorp/time"
-      version = "~> 0.9"     # latest 0.x
+      version = "~> 0.9" # latest 0.x
     }
     random = {
       source  = "hashicorp/random"

@@ -55,3 +55,21 @@ output "workers_asg_name" {
   description = "The unique name of the worker Auto Scaling Group"
   value       = aws_autoscaling_group.workers_asg.name
 }
+
+# Output the Bastion's public IP
+output "bastion_public_ip" {
+  description = "Public IP address of the bastion server"
+  value       = aws_instance.bastion[0].public_ip
+}
+
+# Output the Bastion's public DNS
+output "bastion_public_dns" {
+  description = "Public DNS of the bastion server"
+  value       = aws_instance.bastion[0].public_dns
+}
+
+# Output the Bastion's ssh connection string(s)
+output "bastion_ssh_command" {
+  description = "SSH command to connect to the bastion server"
+  value       = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ../pems/${var.key_name}.pem ubuntu@${aws_instance.bastion[0].public_dns}"
+}

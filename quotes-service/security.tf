@@ -20,7 +20,7 @@ resource "aws_security_group_rule" "bastion_ssh_in" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  cidr_blocks       = [var.allowed_ssh_cidr]  # Now using variable for flexibility
+  cidr_blocks       = [var.allowed_ssh_cidr] # Now using variable for flexibility
   security_group_id = aws_security_group.k8s_bastion_sg.id
 }
 

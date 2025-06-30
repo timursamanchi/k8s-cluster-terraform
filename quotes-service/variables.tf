@@ -86,6 +86,6 @@ variable "worker_desired_capacity" {
 variable "allowed_ssh_cidr" {
   description = "The CIDR block allowed to SSH into the bastion host (e.g. your public IP with /32 mask)"
   type        = string
-  default     = "0.0.0.0/0"  # ⚠ Replace with your actual IP or provide via -var or tfvars for better security
+  default     = "0.0.0.0/0" # ⚠ Replace with your actual IP or provide via -var or tfvars for better security
 }
 #######################################
