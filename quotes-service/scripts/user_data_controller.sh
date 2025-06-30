@@ -1,5 +1,9 @@
 #!/bin/bash
+exec > /var/log/user-data.log 2>&1
 set -e
+
+touch /tmp/it-worked
+echo "Create k8 controllers and installing apps: $(date '+%Y-%m-%d %H:%M:%S') - check /var/log/user-data" > /tmp/k8-welcome.txt
 
 # Disable swap
 swapoff -a
@@ -20,10 +24,3 @@ apt-get install -y containerd kubelet kubeadm kubectl
 systemctl enable --now containerd
 apt-mark hold kubelet kubeadm kubectl
 
-# Init master
-kubeadm init --pod-network-cidr=192.168.0.0/16
-
-# Setup kubeconfig for ubuntu
-mkdir -p /home/ubuntu/.kube
-cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
-chown ubuntu:ubuntu /home/ubuntu/.kube/config
