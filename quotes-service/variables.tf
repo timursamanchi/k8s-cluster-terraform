@@ -6,6 +6,17 @@ variable "vpc_cidr_block" {
   type        = string
   default     = "10.0.0.0/16"
 }
+#######################################
+# Node configuration map to control instance type, AMI, and count for each role
+#######################################
+variable "node_config" {
+  description = "Map of node types to their configuration"
+  type = map(object({
+    instance_type = string
+    ami_id        = string
+    count         = number
+  }))
+}
 
 #######################################
 # SSH Key
